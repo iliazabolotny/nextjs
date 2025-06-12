@@ -1,5 +1,5 @@
 export default function Home() {
   return (
-    <div>Главная</div>
+    <div>Список ракеток</div>
   );
 }

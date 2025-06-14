@@ -4,6 +4,7 @@
     justify-content: space-between;
     flex-direction: row-reverse;
     border-bottom: 5px solid #F0F0F0;
+    padding: 20px 0;
 }
 
 .title {

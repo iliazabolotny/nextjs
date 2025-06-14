@@ -1,0 +1,13 @@
+.footerContainer {
+    border-top: 5px solid #F0F0F0;
+    padding: 60px 0 20px 20px; 
+}
+
+.footerTitle {
+    font-size: 20px;
+    margin-bottom: 60px;
+}
+
+.footerDescritpion {
+    font-size: 16px;
+}

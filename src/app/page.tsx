@@ -4,14 +4,23 @@ import { rackets } from "../../materials/mock";
 export default function Home() {
   return (
     <div>
-      {
-        rackets?.map(item =>
-            <div key={item.id}>
-              <Image alt={item.model} src={item.imageUrl} width={300} height={300} />
-              {item.model}
-            </div>
-        )
-      }
+      <div>
+        Rackets
+      </div>
+      <div>
+        {rackets?.map((item) => (
+          <div key={item.id}>
+            <Image
+              unoptimized
+              alt={item.model}
+              src={item.imageUrl}
+              width={400}
+              height={500}
+            />
+            {item.model}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

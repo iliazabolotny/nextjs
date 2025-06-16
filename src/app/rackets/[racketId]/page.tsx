@@ -1,4 +1,3 @@
-import { useParams } from "next/navigation";
 import Image from "next/image";
 import { rackets } from "../../../../materials/mock";
 import styles from "./racket.module.css";

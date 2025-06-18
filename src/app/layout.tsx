@@ -1,5 +1,5 @@
-import Footer from "@/components/footer/footer";
-import Header from "@/components/header/header";
+import { Layout } from "@/components/layout/layout";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -8,15 +8,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <header>
-          <Header />
-        </header>
-        <main>
-          {children}
-        </main>
-        <footer>
-          <Footer />
-        </footer>
+        <Layout>{children}</Layout>
       </body>
     </html>
   );

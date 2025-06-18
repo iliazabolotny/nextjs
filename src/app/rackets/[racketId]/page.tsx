@@ -28,11 +28,7 @@ export default async function RacketPage({ params }: Props) {
         />
       )}
       <div>
-        {
-          rackets?.filter(
-            (racket) => racket.id === parseInt(racketId! as string, 10)
-          )[0]?.price
-        }
+        {racket?.price}
         &#8364;
       </div>
     </div>

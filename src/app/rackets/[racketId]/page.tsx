@@ -9,42 +9,24 @@ type Props = {
 export default async function RacketPage({ params }: Props) {
   const { racketId } = await params;
 
+  const racket = rackets.find(({ id }) => "" + id === racketId);
+
   return (
     <div className={styles.contentContainer}>
       <div className={styles.descriptionContainer}>
-        <div>
-          {
-            rackets?.filter(
-              (racket) => racket.id === parseInt(racketId! as string, 10)
-            )[0]?.brand?.name
-          }
-        </div>
-        <div>
-          {
-            rackets?.filter(
-              (racket) => racket.id === parseInt(racketId! as string, 10)
-            )[0]?.model
-          }
-        </div>
-        <div>
-          {
-            rackets?.filter(
-              (racket) => racket.id === parseInt(racketId! as string, 10)
-            )[0]?.description
-          }
-        </div>
+        <div>{racket?.brand?.name}</div>
+        <div>{racket?.model}</div>
+        <div>{racket?.description}</div>
       </div>
-      <Image
-        unoptimized
-        src={
-          rackets?.filter(
-            (racket) => racket.id === parseInt(racketId! as string, 10)
-          )[0]?.imageUrl
-        }
-        width={500}
-        height={600}
-        alt="Racket Image"
-      />
+      {racket && (
+        <Image
+          unoptimized
+          src={racket?.imageUrl}
+          width={500}
+          height={600}
+          alt="Racket Image"
+        />
+      )}
       <div>
         {
           rackets?.filter(

@@ -1,4 +1,4 @@
-"use-client"
+"use-client";
 import Link from "next/link";
 import NextLink from "next/link";
 import { ComponentProps, FC } from "react";
@@ -15,7 +15,7 @@ export const RacketLink: FC<Props> = ({ children, ...props }) => {
   return (
     <Link
       {...props}
-      className={`${isActive && styles.activeLink } ${styles.link}`}
+      className={`${isActive && styles.activeLink} ${styles.link}`}
     >
       {children}
     </Link>

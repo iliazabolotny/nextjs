@@ -1,14 +1,14 @@
 "use client";
 
 import styles from "./header.module.css";
-import RacketLink from "../link-container/link";
+import Link from "../link-container/link";
 
 const Header = () => {
   return (
     <div className={styles.headerContainer}>
       <div className={styles.headerLinks}>
-        <RacketLink href="/">Главная</RacketLink>
-        <RacketLink href="/rackets">Ракетки</RacketLink>
+        <Link href="/">Главная</Link>
+        <Link href="/rackets">Ракетки</Link>
       </div>
       <div className={styles.title}>TENNIS STORE</div>
     </div>

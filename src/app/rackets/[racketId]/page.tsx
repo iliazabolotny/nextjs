@@ -9,7 +9,7 @@ type Props = {
 export default async function RacketPage({ params }: Props) {
   const { racketId } = await params;
 
-  const racket = rackets.find(({ id }) => "" + id === racketId);
+  const racket = rackets.find(({ id }) => id?.toString() === racketId);
 
   return (
     <div className={styles.contentContainer}>

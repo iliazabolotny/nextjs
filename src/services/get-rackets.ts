@@ -3,13 +3,14 @@ import { BASE_API_URL } from "../constants/api";
 import { Response } from "../types/response";
 
 type Params = {
-  limit: string;
+  limit?: string;
 };
 
 export const getRackets = async ({
   limit,
 }: Params): Promise<Response<IRacket[]>> => {
-  const result = await fetch(`${BASE_API_URL}/products?limit=${limit}`);
+  const result = !!limit ? await fetch(`${BASE_API_URL}/products?limit=${limit}`)
+    : await fetch(`${BASE_API_URL}/products`);
 
   if (result.status === 404) {
     return { isError: false, data: undefined };

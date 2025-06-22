@@ -1,25 +1,18 @@
-import Image from "next/image";
-import { rackets } from "../../materials/mock";
 import styles from "./main.module.css";
+import { getRackets } from "@/services/get-rackets";
+import { getTop10 } from "@/services/get-top-10";
+import { RacketsContainer } from "@/components/rackets-container/rackets-container";
+import { Top10Container } from "@/components/top-10-container/top-10-container";
 
 export default function Home() {
+  const getRacketsPromise = getRackets({ limit: "10" });
+  const getTop10RacketsPromise = getTop10();
   return (
     <div className={styles.homeContainer}>
-      <div className={styles.pageTitle}>Rackets</div>
-      <div className={styles.cardsContainer}>
-        {rackets?.map((item) => (
-          <div key={item.id}>
-            <Image
-              unoptimized
-              alt={item.model}
-              src={item.imageUrl}
-              width={500}
-              height={600}
-            />
-            <div className={styles.model}>{item.model}</div>
-          </div>
-        ))}
-      </div>
+      <h1 className={styles.pageTitle}>Rackets</h1>
+      <RacketsContainer promiseForResolve={getRacketsPromise} />
+      <h1 className={styles.pageTitle}>Top 10</h1>
+      <Top10Container promiseForResolve={getTop10RacketsPromise} />
     </div>
   );
 }

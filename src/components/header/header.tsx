@@ -7,8 +7,9 @@ const Header = () => {
   return (
     <div className={styles.headerContainer}>
       <div className={styles.headerLinks}>
-        <Link href="/">Главная</Link>
-        <Link href="/rackets">Ракетки</Link>
+        <Link href="/">Home</Link>
+        <Link href="/rackets">Rackets</Link>
+        <Link href="/rackets/top-10">Top 10</Link>
       </div>
       <div className={styles.title}>TENNIS STORE</div>
     </div>

@@ -3,6 +3,12 @@ import { getRackets } from "@/services/get-rackets";
 import { getTop10 } from "@/services/get-top-10";
 import { RacketsContainer } from "@/components/rackets-container/rackets-container";
 import { Top10Container } from "@/components/top-10-container/top-10-container";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Home',
+  description: 'Rackets Home page. The list of 10 rackets and its top',
+}
 
 export default function Home() {
   const getRacketsPromise = getRackets({ limit: "10" });

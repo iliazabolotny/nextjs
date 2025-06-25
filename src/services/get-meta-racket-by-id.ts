@@ -9,11 +9,7 @@ type Params = {
 export const getMetaRacketById = async ({
   id,
 }: Params): Promise<Response<IRacket>> => {
-  const result = await fetch(`${BASE_API_URL}/meta/product/${id}`, {
-    next: {
-      revalidate: 20,
-    },
-  });
+  const result = await fetch(`${BASE_API_URL}/meta/product/${id}`);
 
   if (result.status === 404) {
     return { isError: false, data: undefined };

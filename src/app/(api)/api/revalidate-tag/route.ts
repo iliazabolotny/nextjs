@@ -1,19 +1,12 @@
-import { revalidatePath, revalidateTag } from "next/cache";
-import { NextRequest, NextResponse } from "next/server";
+import { TOP_10_REQUEST_TAG } from "@/constants/api";
+import { revalidateTag } from "next/cache";
+import { NextResponse } from "next/server";
 
-export function GET(request: NextRequest) {
-  const tag = request.nextUrl.searchParams.get("tag");
-
-  if (!tag) {
-    return;
-  }
-
-  revalidateTag(tag);
-
-  revalidatePath("/top-10");
+export function GET() {
+  revalidateTag(TOP_10_REQUEST_TAG);
 
   return NextResponse.json({
     status: "success",
-    tag,
+    TOP_10_REQUEST_TAG,
   });
 }

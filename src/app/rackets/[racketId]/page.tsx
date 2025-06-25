@@ -1,12 +1,11 @@
-import Image from "next/image";
-import styles from "./racket.module.css";
-import { getRacketById } from "@/services/get-racket-by-id";
 import { Suspense } from "react";
 import notFound from "./not-found";
 import { IRacket } from "@/types/racket";
 import { getRackets } from "@/services/get-rackets";
 import { Metadata } from "next";
 import { getMetaRacketById } from "@/services/get-meta-racket-by-id";
+import { RacketContainer } from "@/components/racket-container/racket-container";
+import Loading from "./loading";
 
 type Props = {
   params: Promise<{ racketId: string }>;
@@ -43,7 +42,6 @@ export const generateMetadata = async ({
 
 export default async function RacketPage({ params }: Props) {
   const { racketId } = await params;
-  const { data: racket } = await getRacketById({ id: racketId });
   const { data: racketMeta, isError: isRacketMetaError} = await getMetaRacketById({ id: racketId });
 
   if (isRacketMetaError) {
@@ -55,27 +53,8 @@ export default async function RacketPage({ params }: Props) {
   }
 
   return (
-    <Suspense>
-      <div className={styles.contentContainer}>
-        <div className={styles.descriptionContainer}>
-          <div>{racket?.brand?.name}</div>
-          <div>{racket?.model}</div>
-          <div>{racket?.description}</div>
-        </div>
-        {racket && (
-          <Image
-            unoptimized
-            src={racket?.imageUrl}
-            width={500}
-            height={500}
-            alt="Racket Image"
-          />
-        )}
-        <div>
-          {racket?.price}
-          &#8364;
-        </div>
-      </div>
+    <Suspense fallback={<Loading />}>
+      <RacketContainer racketId={racketId} />
     </Suspense>
   );
 }

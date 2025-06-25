@@ -30,22 +30,23 @@ export const generateMetadata = async ({
   if (result.isError || !result.data) {
     return {
       title: "tennis racket",
-      description: "racket description"
+      description: "racket description",
     };
   }
 
   return {
     title: result.data.name,
-    description: result.data.description
+    description: result.data.description,
   };
 };
 
 export default async function RacketPage({ params }: Props) {
   const { racketId } = await params;
-  const { data: racketMeta, isError: isRacketMetaError} = await getMetaRacketById({ id: racketId });
+  const { data: racketMeta, isError: isRacketMetaError } =
+    await getMetaRacketById({ id: racketId });
 
   if (isRacketMetaError) {
-    throw new Error("error");
+    throw new Error("Racket error");
   }
 
   if (!racketMeta) {

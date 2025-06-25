@@ -21,24 +21,24 @@ export const RacketContainer: FC<Props> = async ({ racketId }) => {
 
   return (
     <div className={styles.contentContainer}>
-        <div className={styles.descriptionContainer}>
-          <div>{data?.brand?.name}</div>
-          <div>{data?.model}</div>
-          <div>{data?.description}</div>
-        </div>
-        {data && (
-          <Image
-            unoptimized
-            src={data?.imageUrl}
-            width={500}
-            height={500}
-            alt="Racket Image"
-          />
-        )}
-        <div>
-          {data?.price}
-          &#8364;
-        </div>
+      <div className={styles.descriptionContainer}>
+        <div>{data?.brand?.name}</div>
+        <div>{data?.model}</div>
+        <div>{data?.description}</div>
       </div>
+      {data && (
+        <Image
+          unoptimized
+          src={data?.imageUrl}
+          width={500}
+          height={500}
+          alt="Racket Image"
+        />
+      )}
+      <div>
+        {data?.price}
+        &#8364;
+      </div>
+    </div>
   );
 };

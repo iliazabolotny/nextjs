@@ -1,10 +1,10 @@
 import { IRacket } from "@/types/racket";
-import { BASE_API_URL } from "../constants/api";
+import { BASE_API_URL, TOP_10_REQUEST_TAG } from "../constants/api";
 import { Response } from "../types/response";
 
 export const getTop10 = async (): Promise<Response<IRacket[]>> => {
   const result = await fetch(`${BASE_API_URL}/top-10`, {
-    next: { tags: ["getTop10Rackets"] },
+    next: { tags: [TOP_10_REQUEST_TAG] },
   });
 
   if (result.status === 404) {

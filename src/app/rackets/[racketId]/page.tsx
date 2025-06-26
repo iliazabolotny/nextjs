@@ -1,10 +1,11 @@
-import Image from "next/image";
-import styles from "./racket.module.css";
-import { getRacketById } from "@/services/get-racket-by-id";
 import { Suspense } from "react";
 import notFound from "./not-found";
 import { IRacket } from "@/types/racket";
 import { getRackets } from "@/services/get-rackets";
+import { Metadata } from "next";
+import { getMetaRacketById } from "@/services/get-meta-racket-by-id";
+import { RacketContainer } from "@/components/racket-container/racket-container";
+import Loading from "./loading";
 
 type Props = {
   params: Promise<{ racketId: string }>;
@@ -19,40 +20,42 @@ export const generateStaticParams = async () => {
   return result;
 };
 
-export default async function RacketPage({ params }: Props) {
+export const generateMetadata = async ({
+  params,
+}: Props): Promise<Metadata> => {
   const { racketId } = await params;
-  const { data, isError } = await getRacketById({ id: racketId });
 
-  if (isError) {
-    return "someError";
+  const result = await getMetaRacketById({ id: racketId });
+
+  if (result.isError || !result.data) {
+    return {
+      title: "tennis racket",
+      description: "racket description",
+    };
   }
 
-  if (!data) {
+  return {
+    title: result.data.name,
+    description: result.data.description,
+  };
+};
+
+export default async function RacketPage({ params }: Props) {
+  const { racketId } = await params;
+  const { data: racketMeta, isError: isRacketMetaError } =
+    await getMetaRacketById({ id: racketId });
+
+  if (isRacketMetaError) {
+    throw new Error("Racket error");
+  }
+
+  if (!racketMeta) {
     return notFound();
   }
 
   return (
-    <Suspense>
-      <div className={styles.contentContainer}>
-        <div className={styles.descriptionContainer}>
-          <div>{data?.brand?.name}</div>
-          <div>{data?.model}</div>
-          <div>{data?.description}</div>
-        </div>
-        {data && (
-          <Image
-            unoptimized
-            src={data?.imageUrl}
-            width={500}
-            height={500}
-            alt="Racket Image"
-          />
-        )}
-        <div>
-          {data?.price}
-          &#8364;
-        </div>
-      </div>
+    <Suspense fallback={<Loading />}>
+      <RacketContainer racketId={racketId} />
     </Suspense>
   );
 }

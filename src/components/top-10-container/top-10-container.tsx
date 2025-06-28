@@ -15,7 +15,7 @@ export const Top10Container: FC<Props> = ({ promiseForResolve }) => {
   const { data, isError } = use(promiseForResolve);
 
   if (isError) {
-    throw new Error('Top 10 error');
+    throw new Error("Top 10 error");
   }
 
   if (!data) {

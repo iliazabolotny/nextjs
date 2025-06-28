@@ -1,0 +1,22 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: auto;
+    padding: 32px;
+    width: 200px;
+    height: 200px;
+}
+
+.error {
+    color: red;
+}
+
+.button {
+    margin-top: auto;
+    width: 177px;
+}
+
+.header {
+    text-align: center;
+}

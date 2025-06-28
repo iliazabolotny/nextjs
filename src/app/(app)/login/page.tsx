@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect } from "react";
 import { loginAction } from "./login-action";
-import { LoginState } from "../../types/login";
+import { LoginState } from "../../../types/login";
 import styles from "./login.module.css";
 
 const Login = () => {

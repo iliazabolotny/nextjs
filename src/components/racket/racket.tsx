@@ -1,18 +1,19 @@
 "use client";
-
 import { IRacket } from "@/types/racket";
-import { FC } from "react";
+import { FC, use } from "react";
 import Image from "next/image";
 import styles from "./racket.module.css";
 import { FavoriteButton } from "../favorite-button/favorite-button";
-import { IUser } from "@/types/user";
+import { UserContext } from "@/providers/user";
 
 type Props = {
   racket: IRacket;
-  user: IUser | null;
 };
 
-export const Racket: FC<Props> = ({ racket, user }) => {
+export const Racket: FC<Props> = ({ racket }) => {
+  const { user } = use(UserContext);
+  console.log(user);
+
   return (
     <div className={styles.contentContainer}>
       <div className={styles.descriptionContainer}>

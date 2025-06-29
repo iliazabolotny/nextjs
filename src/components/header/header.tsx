@@ -1,15 +1,12 @@
-"use client"
 import styles from "./header.module.css";
 import Link from "../link-container/link";
+import UserOptions from "../user-options/user-options";
 
 const Header = () => {
 
   return (
     <div className={styles.headerContainer}>
-      <div>
-        <Link href="/login">Login</Link>
-        <Link href="/registry">Register</Link>
-      </div>
+      <UserOptions />
       <div className={styles.headerLinks}>
         <Link href="/">Home</Link>
         <Link href="/rackets">Rackets</Link>

@@ -1,4 +1,4 @@
-"use-client";
+"use client";
 import NextLink from "next/link";
 import { ComponentProps, FC } from "react";
 import styles from "./link.module.css";

@@ -9,15 +9,6 @@ type Props = {
   params: Promise<{ racketId: string }>;
 };
 
-// export const generateStaticParams = async () => {
-//   const { data: rackets } = await getRackets({});
-//   const result: { racketId: string }[] =
-//     rackets?.map((racket: IRacket) => ({
-//       racketId: racket.id.toString(),
-//     })) || [];
-//   return result;
-// };
-
 export const generateMetadata = async ({
   params,
 }: Props): Promise<Metadata> => {

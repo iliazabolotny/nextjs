@@ -12,7 +12,6 @@ type Props = {
 
 export const Racket: FC<Props> = ({ racket }) => {
   const { user } = use(UserContext);
-  console.log(user);
 
   return (
     <div className={styles.contentContainer}>
@@ -34,7 +33,7 @@ export const Racket: FC<Props> = ({ racket }) => {
         {racket?.price}
         &#8364;
       </div>
-      {user && <FavoriteButton />}
+      {user && <FavoriteButton racketId={racket.id} isFavoriteInitial={racket?.userData?.isFavorite} />}
     </div>
   );
 };

@@ -1,16 +1,26 @@
 import { IRacket } from "@/types/racket";
 import { BASE_API_URL } from "../constants/api";
 import { Response } from "../types/response";
+import { cookies } from "next/headers";
 
 type Params = {
   limit?: string;
+  page?: string;
 };
 
 export const getRackets = async ({
-  limit,
+  limit = "1",
+  page = "1",
 }: Params): Promise<Response<IRacket[]>> => {
-  const result = !!limit ? await fetch(`${BASE_API_URL}/products?limit=${limit}`)
-    : await fetch(`${BASE_API_URL}/products`);
+  const cookieStore = await cookies();
+  const result = await fetch(
+    `${BASE_API_URL}/products?page=${page}&limit=${limit}`,
+    {
+      headers: {
+        Cookie: cookieStore.toString(),
+      },
+    }
+  );
 
   if (result.status === 404) {
     return { isError: false, data: undefined };
@@ -20,7 +30,7 @@ export const getRackets = async ({
     return { isError: true, data: undefined };
   }
 
-  const data = await result.json();
+  const data: IRacket[] = await result.json();
 
   return { isError: false, data };
 };

@@ -1,4 +1,3 @@
-import { Layout } from "@/components/layout/layout";
 import NextTopLoader from "nextjs-toploader";
 
 export default function RootLayout({
@@ -10,7 +9,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <NextTopLoader />
-        <Layout>{children}</Layout>
+        {children}
       </body>
     </html>
   );

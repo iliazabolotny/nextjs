@@ -1,0 +1,20 @@
+.formContainer {
+    padding: 20px 20px;
+    text-align: center;
+}
+
+.form {
+    margin: auto;
+    align-items: center;
+}
+
+.formElements {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.formBtn {
+    width: 250px;
+    margin: auto;
+}

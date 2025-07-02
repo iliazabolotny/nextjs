@@ -1,0 +1,12 @@
+.racketCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+}
+
+.favoriteIcon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}

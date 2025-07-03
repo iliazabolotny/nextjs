@@ -8,7 +8,7 @@ import { unstable_serialize } from "swr/infinite";
 import { RacketsContainerClient } from "./rackets-container-client";
 
 export const RacketsLoader: FC = async () => {
-  const { data } = await getRackets({ page: "1", limit: LIMIT });
+  const { data } = await getRackets({ page: 1, limit: LIMIT });
 
   if (!data) {
     return notFound();

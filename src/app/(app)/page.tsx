@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 export default function Home() {
-  const getRacketsPromise = getRackets({ limit: "10" });
+  const getRacketsPromise = getRackets({ limit: 10 });
   const getTop10RacketsPromise = getTop10();
   return (
     <div className={styles.homeContainer}>

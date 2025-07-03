@@ -1,4 +1,3 @@
-"use client";
 import { FC } from "react";
 import { IRacket } from "@/types/racket";
 import { RacketCard } from "../racket-card/racket-card";

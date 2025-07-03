@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, use, useMemo } from "react";
+import { FC, use } from "react";
 
 import styles from "./racket-card.module.css";
 import { IRacket } from "@/types/racket";
@@ -29,11 +29,6 @@ export const RacketCard: FC<Props> = ({ racket }) => {
     isFavoriteInitial: userData?.isFavorite,
   });
 
-  const favoriteBtn = useMemo(
-    () => <FavoriteButton racketId={id} isFavoriteInitial={isFavorite} />,
-    [isFavorite, id]
-  );
-
   return (
     <div key={racket.id} className={styles.racketCard}>
       {isFavorite && (
@@ -48,7 +43,7 @@ export const RacketCard: FC<Props> = ({ racket }) => {
       )}
       <Image  unoptimized alt={name} src={imageUrl} width={500} height={500} />
       <Link href={`/rackets/${id}`}>{name}</Link>
-      {user && favoriteBtn}
+      {user && <FavoriteButton racketId={id} isFavoriteInitial={isFavorite} />}
     </div>
   );
 };

@@ -4,13 +4,13 @@ import { Response } from "../types/response";
 import { cookies } from "next/headers";
 
 type Params = {
-  limit?: string;
-  page?: string;
+  limit?: number;
+  page?: number;
 };
 
 export const getRackets = async ({
-  limit = "1",
-  page = "1",
+  limit = 1,
+  page = 1,
 }: Params): Promise<Response<IRacket[]>> => {
   const cookieStore = await cookies();
   const result = await fetch(

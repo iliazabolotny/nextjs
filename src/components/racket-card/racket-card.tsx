@@ -33,7 +33,6 @@ export const RacketCard: FC<Props> = ({ racket }) => {
     <div key={racket.id} className={styles.racketCard}>
       {isFavorite && (
         <Image
-          unoptimized
           src="http://localhost:4000/bookmark.png"
           alt="bookmark"
           width={32}
@@ -41,7 +40,7 @@ export const RacketCard: FC<Props> = ({ racket }) => {
           className={styles.favoriteIcon}
         />
       )}
-      <Image  unoptimized alt={name} src={imageUrl} width={500} height={500} />
+      <Image alt={name} src={imageUrl} width={500} height={500} />
       <Link href={`/rackets/${id}`}>{name}</Link>
       {user && <FavoriteButton racketId={id} isFavoriteInitial={isFavorite} />}
     </div>

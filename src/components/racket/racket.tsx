@@ -22,7 +22,6 @@ export const Racket: FC<Props> = ({ racket }) => {
       </div>
       {racket && (
         <Image
-          unoptimized
           src={racket?.imageUrl}
           width={500}
           height={500}

@@ -1,4 +1,4 @@
-import { FC, Suspense } from "react";
+import { FC } from "react";
 import { SWRConfig } from "swr";
 import { getRackets } from "@/services/get-rackets";
 import { LIMIT } from "./constants";
@@ -15,7 +15,6 @@ export const RacketsLoader: FC = async () => {
   }
 
   return (
-    <Suspense fallback="rackets loading...">
       <SWRConfig
         value={{
           fallback: {
@@ -26,6 +25,5 @@ export const RacketsLoader: FC = async () => {
       >
         <RacketsContainerClient initialData={data} />
       </SWRConfig>
-    </Suspense>
   );
 };

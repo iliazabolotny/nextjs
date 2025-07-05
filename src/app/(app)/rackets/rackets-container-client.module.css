@@ -1,0 +1,10 @@
+.loadBtn {
+    width: 500px;
+}
+
+.loadContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px;
+}

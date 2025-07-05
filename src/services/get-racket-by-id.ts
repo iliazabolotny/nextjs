@@ -14,7 +14,10 @@ export const getRacketById = async ({
   const result = await fetch(`${BASE_API_URL}/product/${id}`, {
     headers: {
       Cookie: cookieStore.toString(),
-    }
+    },
+    next: {
+      tags: [`getRacketById-${id}`],
+    },
   });
 
   if (result.status === 404) {

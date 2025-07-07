@@ -2,7 +2,7 @@
 
 import { BASE_API_URL } from "@/constants/api";
 import { useSearchParams } from "next/navigation";
-import { FC, use } from "react";
+import { FC, use, useState } from "react";
 import useSWR from "swr";
 import { LIMIT } from "./constants";
 import { RacketsGrid } from "../../../components/rackets-grid/rackets-grid";
@@ -11,13 +11,22 @@ import { Response } from "@/types/response";
 import styles from "./rackets-paginated.module.css";
 
 const fetcher = async (path: string) => {
-  const response = await fetch(`${BASE_API_URL}/${path}`, {
-    credentials: "include",
-  });
+  if (path.split("=")[3] === "undefined") {
+    const newPath = path.replace("&brand=undefined", "");
+    const response = await fetch(`${BASE_API_URL}/${newPath}`, {
+      credentials: "include",
+    });
+    const result = await response.json();
 
-  const result = await response.json();
+    return { data: result };
+  } else {
+    const response = await fetch(`${BASE_API_URL}/${path}`, {
+      credentials: "include",
+    });
+    const result = await response.json();
 
-  return { data: result };
+    return { data: result };
+  }
 };
 
 type Props = {
@@ -26,20 +35,29 @@ type Props = {
 
 export const RacketsContainer: FC<Props> = ({ filters }) => {
   const searchParams = useSearchParams();
+  const [currentBrand, setCurrentBrand] = useState<string | undefined>();
   const page = parseInt(searchParams.get("page") || "") || 1;
   const { data: filtersData } = use(filters);
 
   const { data, error, isLoading } = useSWR(
-    `products?page=${page}&limit=${LIMIT}`,
+    `products?page=${page}&limit=${LIMIT}&brand=${currentBrand}`,
     fetcher,
     {
       revalidateIfStale: false,
     }
   );
 
-  const updatePage = (page: number) => {
-    window.history.pushState({}, "", `?page=${page}&limit=${LIMIT}`);
-    // router.push(`/rackets-paginated?page=${page}&limit=${LIMIT}`);
+  const updatePage = (page: number, brand?: string) => {
+    if (!!brand) {
+      setCurrentBrand(brand);
+      window.history.pushState(
+        {},
+        "",
+        `?page=${page}&limit=${LIMIT}&brand=${brand}`
+      );
+    } else {
+      window.history.pushState({}, "", `?page=${page}&limit=${LIMIT}`);
+    }
   };
 
   const rackets = data?.data;
@@ -61,20 +79,28 @@ export const RacketsContainer: FC<Props> = ({ filters }) => {
       <div className={styles.pageContainer}>
         <div>
           <div className={styles.filtersTitle}>Brand</div>
-          <div className={styles.filtersAll}>All</div>
+          <div onClick={() => updatePage(page, undefined)} className={styles.filtersAll}>
+            All
+          </div>
           <ul className={styles.filtersContainer}>
             {filtersData?.map((filter) => (
-              <li className={styles.filterItem} key={filter.id}>{filter.name}</li>
+              <li
+                className={styles.filterItem}
+                key={filter.id}
+                onClick={() => updatePage(page, filter.name)}
+              >
+                {filter.name}
+              </li>
             ))}
           </ul>
         </div>
         <RacketsGrid data={rackets} />
       </div>
       <div>
-        {page > 1 && <button onClick={() => updatePage(page - 1)}>prev</button>}
+        {page > 1 && <button onClick={() => updatePage(page - 1, currentBrand)}>prev</button>}
         <span>{page}</span>
         {rackets.length >= LIMIT && (
-          <button onClick={() => updatePage(page + 1)}>next</button>
+          <button onClick={() => updatePage(page + 1, currentBrand)}>next</button>
         )}
       </div>
     </div>

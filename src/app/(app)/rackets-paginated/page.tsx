@@ -3,7 +3,7 @@ import { RacketsContainer } from "./container";
 import { SWRConfig } from "swr";
 import { LIMIT } from "./constants";
 import { getRackets } from "@/services/get-rackets";
-import { getFilters } from "@/services/get-filters";
+import { getBrands } from "@/services/get-brands";
 
 interface Props {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -13,7 +13,7 @@ interface Props {
 const Page: FC<Props> = async ({ searchParams }) => {
   const { page = "1" } = await searchParams;
 
-  const filters = getFilters();
+  const filters = getBrands();
 
   let pageNumber = 1;
   if (typeof page === "string") {

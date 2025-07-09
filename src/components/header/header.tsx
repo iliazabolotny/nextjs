@@ -3,9 +3,8 @@ import Link from "../link-container/link";
 import UserOptions from "../user-options/user-options";
 
 const Header = () => {
-
   return (
-    <div className={styles.headerContainer}>
+    <header className={styles.headerContainer}>
       <UserOptions />
       <div className={styles.headerLinks}>
         <Link href="/">Home</Link>
@@ -14,7 +13,7 @@ const Header = () => {
         <Link href="/rackets-paginated">Choose a rakcet</Link>
       </div>
       <div className={styles.title}>TENNIS STORE</div>
-    </div>
+    </header>
   );
 };
 

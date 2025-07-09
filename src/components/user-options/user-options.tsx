@@ -19,7 +19,7 @@ const UserOptions = () => {
   const { user } = use(UserContext);
 
   return (
-    <div>
+    <div className={styles.userOptionsContainer}>
       <Link href="/registry">Register</Link>
       {user ? (
         <button

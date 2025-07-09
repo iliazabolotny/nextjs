@@ -3,7 +3,7 @@ import { Response } from "../types/response";
 import { cookies } from "next/headers";
 import { IFilter } from "@/types/filter";
 
-export const getFilters = async (): Promise<Response<IFilter[]>> => {
+export const getBrands = async (): Promise<Response<IFilter[]>> => {
 
     const cookieStore = await cookies();
 

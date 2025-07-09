@@ -2,7 +2,7 @@
 
 import { BASE_API_URL } from "@/constants/api";
 import { useSearchParams } from "next/navigation";
-import { FC, use, useState } from "react";
+import { FC, use, useRef } from "react";
 import useSWR from "swr";
 import { LIMIT } from "./constants";
 import { RacketsGrid } from "../../../components/rackets-grid/rackets-grid";
@@ -11,22 +11,12 @@ import { Response } from "@/types/response";
 import styles from "./rackets-paginated.module.css";
 
 const fetcher = async (path: string) => {
-  if (path.split("=")[3] === "undefined") {
-    const newPath = path.replace("&brand=undefined", "");
-    const response = await fetch(`${BASE_API_URL}/${newPath}`, {
-      credentials: "include",
-    });
-    const result = await response.json();
+  const response = await fetch(`${BASE_API_URL}/${path}`, {
+    credentials: "include",
+  });
+  const result = await response.json();
 
-    return { data: result };
-  } else {
-    const response = await fetch(`${BASE_API_URL}/${path}`, {
-      credentials: "include",
-    });
-    const result = await response.json();
-
-    return { data: result };
-  }
+  return { data: result };
 };
 
 type Props = {
@@ -34,39 +24,49 @@ type Props = {
 };
 
 export const RacketsContainer: FC<Props> = ({ filters }) => {
+  const withFilter = useRef<boolean>(false);
   const searchParams = useSearchParams();
-  const [currentBrand, setCurrentBrand] = useState<string | undefined>();
   const page = parseInt(searchParams.get("page") || "") || 1;
+  const brand = searchParams.get("brand") || "";
   const { data: filtersData } = use(filters);
 
   const { data, error, isLoading } = useSWR(
-    `products?page=${page}&limit=${LIMIT}&brand=${currentBrand}`,
+    `products?page=${page}&limit=${LIMIT}`,
     fetcher,
     {
       revalidateIfStale: false,
     }
   );
 
-  const updatePage = (page: number, brand?: string) => {
-    if (!!brand) {
-      setCurrentBrand(brand);
-      window.history.pushState(
-        {},
-        "",
-        `?page=${page}&limit=${LIMIT}&brand=${brand}`
-      );
-    } else {
-      window.history.pushState({}, "", `?page=${page}&limit=${LIMIT}`);
-    }
+  const {
+    data: brandData,
+    error: brandError,
+    isLoading: brandIsLoading,
+  } = useSWR(`products?page=${page}&limit=${LIMIT}&brand=${brand}`, fetcher, {
+    revalidateIfStale: false,
+  });
+
+  const updatePage = (page: number) => {
+    withFilter.current = false;
+    window.history.pushState({}, "", `?page=${page}&limit=${LIMIT}`);
   };
 
-  const rackets = data?.data;
+  const updatePageWithFilter = (page: number, brand: string) => {
+    withFilter.current = true;
+    window.history.pushState(
+      {},
+      "",
+      `?page=${page}&limit=${LIMIT}&brand=${brand}`
+    );
+  };
 
-  if (error) {
+  const rackets = withFilter.current ? brandData?.data : data?.data;
+
+  if (error || brandError) {
     return "error";
   }
 
-  if (isLoading && !rackets?.length) {
+  if ((isLoading || brandIsLoading) && !rackets?.length) {
     return "isLoading";
   }
 
@@ -79,7 +79,7 @@ export const RacketsContainer: FC<Props> = ({ filters }) => {
       <div className={styles.pageContainer}>
         <div>
           <div className={styles.filtersTitle}>Brand</div>
-          <div onClick={() => updatePage(page, undefined)} className={styles.filtersAll}>
+          <div onClick={() => updatePage(page)} className={styles.filtersAll}>
             All
           </div>
           <ul className={styles.filtersContainer}>
@@ -87,7 +87,7 @@ export const RacketsContainer: FC<Props> = ({ filters }) => {
               <li
                 className={styles.filterItem}
                 key={filter.id}
-                onClick={() => updatePage(page, filter.name)}
+                onClick={() => updatePageWithFilter(page, filter.name)}
               >
                 {filter.name}
               </li>
@@ -97,10 +97,32 @@ export const RacketsContainer: FC<Props> = ({ filters }) => {
         <RacketsGrid data={rackets} />
       </div>
       <div>
-        {page > 1 && <button onClick={() => updatePage(page - 1, currentBrand)}>prev</button>}
+        {page > 1 && (
+          <button
+            onClick={() => {
+              if (withFilter.current) {
+                updatePageWithFilter(page - 1, brand);
+              } else {
+                updatePage(page - 1);
+              }
+            }}
+          >
+            prev
+          </button>
+        )}
         <span>{page}</span>
         {rackets.length >= LIMIT && (
-          <button onClick={() => updatePage(page + 1, currentBrand)}>next</button>
+          <button
+            onClick={() => {
+              if (withFilter.current) {
+                updatePageWithFilter(page + 1, brand);
+              } else {
+                updatePage(page + 1);
+              }
+            }}
+          >
+            next
+          </button>
         )}
       </div>
     </div>

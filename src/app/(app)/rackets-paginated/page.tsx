@@ -11,9 +11,13 @@ interface Props {
 }
 
 const Page: FC<Props> = async ({ searchParams }) => {
-  const { page = "1" } = await searchParams;
+  const { page = "1", brand } = await searchParams;
 
   const filters = getBrands();
+
+  const productsKey = brand
+    ? `products?page=${page}&limit=${LIMIT}&brand=${brand}`
+    : `products?page=${page}&limit=${LIMIT}`;
 
   let pageNumber = 1;
   if (typeof page === "string") {
@@ -21,13 +25,14 @@ const Page: FC<Props> = async ({ searchParams }) => {
   }
 
   return (
-    <Suspense fallback='Loading ...'>
+    <Suspense fallback="Loading ...">
       <SWRConfig
         value={{
           fallback: {
-            [`products?page=${page}&limit=${LIMIT}`]: getRackets({
+            [productsKey]: getRackets({
               page: pageNumber,
               limit: LIMIT,
+              brand: brand as string
             }),
           },
         }}

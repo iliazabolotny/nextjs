@@ -2,7 +2,7 @@
 
 import { BASE_API_URL } from "@/constants/api";
 import { useSearchParams } from "next/navigation";
-import { FC, use, useRef } from "react";
+import { FC, use } from "react";
 import useSWR from "swr";
 import { LIMIT } from "./constants";
 import { RacketsGrid } from "../../../components/rackets-grid/rackets-grid";
@@ -24,49 +24,34 @@ type Props = {
 };
 
 export const RacketsContainer: FC<Props> = ({ filters }) => {
-  const withFilter = useRef<boolean>(false);
   const searchParams = useSearchParams();
   const page = parseInt(searchParams.get("page") || "") || 1;
-  const brand = searchParams.get("brand") || "";
+  const brand = searchParams.get("brand");
   const { data: filtersData } = use(filters);
 
-  const { data, error, isLoading } = useSWR(
-    `products?page=${page}&limit=${LIMIT}`,
-    fetcher,
-    {
-      revalidateIfStale: false,
-    }
-  );
+  const productsKey = brand
+    ? `products?page=${page}&limit=${LIMIT}&brand=${brand}`
+    : `products?page=${page}&limit=${LIMIT}`;
 
-  const {
-    data: brandData,
-    error: brandError,
-    isLoading: brandIsLoading,
-  } = useSWR(`products?page=${page}&limit=${LIMIT}&brand=${brand}`, fetcher, {
+  const { data, error, isLoading } = useSWR(productsKey, fetcher, {
     revalidateIfStale: false,
   });
 
-  const updatePage = (page: number) => {
-    withFilter.current = false;
-    window.history.pushState({}, "", `?page=${page}&limit=${LIMIT}`);
+  const updatePage = (page: number, brand?: string | null) => {
+    if (brand) {
+      window.history.pushState({}, "", `?page=${page}&limit=${LIMIT}&brand=${brand}`);
+    } else {
+      window.history.pushState({}, "", `?page=${page}&limit=${LIMIT}`);
+    }
   };
 
-  const updatePageWithFilter = (page: number, brand: string) => {
-    withFilter.current = true;
-    window.history.pushState(
-      {},
-      "",
-      `?page=${page}&limit=${LIMIT}&brand=${brand}`
-    );
-  };
+  const rackets = data?.data;
 
-  const rackets = withFilter.current ? brandData?.data : data?.data;
-
-  if (error || brandError) {
+  if (error) {
     return "error";
   }
 
-  if ((isLoading || brandIsLoading) && !rackets?.length) {
+  if (isLoading && !rackets?.length) {
     return "isLoading";
   }
 
@@ -79,7 +64,7 @@ export const RacketsContainer: FC<Props> = ({ filters }) => {
       <div className={styles.pageContainer}>
         <div>
           <div className={styles.filtersTitle}>Brand</div>
-          <div onClick={() => updatePage(page)} className={styles.filtersAll}>
+          <div onClick={() => updatePage(1, null)} className={styles.filtersAll}>
             All
           </div>
           <ul className={styles.filtersContainer}>
@@ -87,7 +72,7 @@ export const RacketsContainer: FC<Props> = ({ filters }) => {
               <li
                 className={styles.filterItem}
                 key={filter.id}
-                onClick={() => updatePageWithFilter(page, filter.name)}
+                onClick={() => {updatePage(1, filter.name)}}
               >
                 {filter.name}
               </li>
@@ -97,33 +82,9 @@ export const RacketsContainer: FC<Props> = ({ filters }) => {
         <RacketsGrid data={rackets} />
       </div>
       <div>
-        {page > 1 && (
-          <button
-            onClick={() => {
-              if (withFilter.current) {
-                updatePageWithFilter(page - 1, brand);
-              } else {
-                updatePage(page - 1);
-              }
-            }}
-          >
-            prev
-          </button>
-        )}
+        {page > 1 && <button onClick={() => {updatePage(page - 1, brand)}}>prev</button>}
         <span>{page}</span>
-        {rackets.length >= LIMIT && (
-          <button
-            onClick={() => {
-              if (withFilter.current) {
-                updatePageWithFilter(page + 1, brand);
-              } else {
-                updatePage(page + 1);
-              }
-            }}
-          >
-            next
-          </button>
-        )}
+        {rackets.length >= LIMIT && <button onClick={() => {updatePage(page + 1, brand)}}>next</button>}
       </div>
     </div>
   );

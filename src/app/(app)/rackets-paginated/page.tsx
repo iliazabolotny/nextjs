@@ -6,7 +6,7 @@ import { getRackets } from "@/services/get-rackets";
 import { getBrands } from "@/services/get-brands";
 
 interface Props {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: Promise<{ [key: string]: string | undefined }>;
   params: Promise<{ racketId: string }>;
 }
 
@@ -32,7 +32,7 @@ const Page: FC<Props> = async ({ searchParams }) => {
             [productsKey]: getRackets({
               page: pageNumber,
               limit: LIMIT,
-              brand: brand as string
+              brand: brand
             }),
           },
         }}

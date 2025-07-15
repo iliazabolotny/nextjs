@@ -1,0 +1,26 @@
+.pageContainer {
+    display: flex;
+    margin-top: 20px;
+}
+
+.filtersContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.filtersTitle {
+    padding: 0 0 40px 30px;
+    font-weight: bold;
+    color: #A2A4A3;
+}
+
+.filtersAll {
+    padding-left: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.filterItem {
+    cursor: pointer;
+}

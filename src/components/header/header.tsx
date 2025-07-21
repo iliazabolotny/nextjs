@@ -10,7 +10,7 @@ const Header = () => {
         <Link href="/">Home</Link>
         <Link href="/rackets/top-10">Top 10</Link>
         <Link href="/rackets">All</Link>
-        <Link href="/rackets-paginated">Choose a rakcet</Link>
+        <Link href="/rackets-paginated">Choose your sports equipment</Link>
       </div>
       <div className={styles.title}>TENNIS STORE</div>
     </header>

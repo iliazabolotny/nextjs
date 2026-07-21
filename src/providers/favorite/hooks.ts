@@ -1,6 +1,6 @@
 "use client";
 
-import { IRacket } from "@/types/racket";
+import { IProduct } from "@/types/product";
 import { useContext, useEffect } from "react";
 import { FavoriteContext } from ".";
 
@@ -11,10 +11,10 @@ export const useSetIsFavorite = () => {
 };
 
 export const useHydrateFavorite = ({
-  racketId,
+  productId,
   isFavorite,
 }: {
-  racketId: IRacket["id"];
+  productId: IProduct["id"];
   isFavorite?: boolean;
 }) => {
   const setIsFavorite = useSetIsFavorite();
@@ -23,17 +23,17 @@ export const useHydrateFavorite = ({
     if (typeof isFavorite === "boolean") {
       setIsFavorite({
         isFavorite: isFavorite,
-        id: racketId,
+        id: productId,
       });
     }
-  }, [racketId, isFavorite, setIsFavorite]);
+  }, [productId, isFavorite, setIsFavorite]);
 };
 
 export const useIsFavoriteById = ({
   id,
   isFavoriteInitial,
 }: {
-  id: IRacket["id"];
+  id: IProduct["id"];
   isFavoriteInitial?: boolean;
 }): boolean => {
   const { favorites } = useContext(FavoriteContext);

@@ -5,14 +5,14 @@ import { cookies } from "next/headers";
 
 export const handleFavoriteAction = async ({
   isFavorite,
-  racketId,
+  productId,
 }: {
   isFavorite: boolean;
-  racketId: number;
+  productId: number;
 }) => {
   const cookieStore = await cookies();
 
-  const url = `http://localhost:4000/api/product/${racketId}/favorite`;
+  const url = `http://localhost:4000/api/product/${productId}/favorite`;
 
   await (isFavorite
     ? fetch(url, {
@@ -28,5 +28,5 @@ export const handleFavoriteAction = async ({
         },
       }));
 
-  revalidateTag(`getRacketById - ${racketId}`);
+  revalidateTag(`getById - ${productId}`);
 };

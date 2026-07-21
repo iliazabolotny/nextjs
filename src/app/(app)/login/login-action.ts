@@ -1,8 +1,8 @@
 "use server";
 
 import { BASE_API_URL } from "@/constants/api";
-import { parseSetCookie } from "../../../helpers/parse-set-cookie";
-import { LoginState } from "../../../types/login";
+import { parseSetCookie } from "@/helpers/parse-set-cookie";
+import { LoginState } from "@/types/login";
 import { cookies } from "next/headers";
 
 export const loginAction = async (_: LoginState, formData: FormData) => {

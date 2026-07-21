@@ -7,12 +7,12 @@ const Header = () => {
     <header className={styles.headerContainer}>
       <UserOptions />
       <div className={styles.headerLinks}>
-        <Link href="/">Home</Link>
-        <Link href="/rackets/top-10">Top 10</Link>
-        <Link href="/rackets">All</Link>
-        <Link href="/rackets-paginated">Choose your sports equipment</Link>
+        <Link href="/">Main</Link>
+        <Link href="/products/top-10">Top 10</Link>
+        <Link href="/products">Notebooks</Link>
+        <Link href="/products-paginated">Choose your notebook</Link>
       </div>
-      <div className={styles.title}>TENNIS STORE</div>
+      <div className={styles.title}>NOTEBOOKS STORE</div>
     </header>
   );
 };

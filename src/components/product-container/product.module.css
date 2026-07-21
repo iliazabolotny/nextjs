@@ -1,0 +1,10 @@
+.contentContainer {
+    display: flex;
+    align-items: flex-start;
+    margin: 20px;
+    gap: 30px;
+}
+
+.descriptionContainer {
+    max-width: 300px;
+}

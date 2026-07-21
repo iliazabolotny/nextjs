@@ -1,23 +1,23 @@
 "use client";
 
 import { useIsFavoriteById, useSetIsFavorite } from "@/providers/favorite/hooks";
-import { IRacket } from "@/types/racket";
+import { IProduct } from "@/types/product";
 import { FC } from "react";
 import { handleFavorite } from "./handle-favorite";
 
 interface Props {
   isFavoriteInitial?: boolean;
-  racketId: IRacket["id"];
+  productId: IProduct["id"];
 }
 
 
-export const FavoriteButton: FC<Props> = ({isFavoriteInitial, racketId}) => {
-   const isFavorite = useIsFavoriteById({ id: racketId, isFavoriteInitial });
+export const FavoriteButton: FC<Props> = ({isFavoriteInitial, productId}) => {
+   const isFavorite = useIsFavoriteById({ id: productId, isFavoriteInitial });
   const setIsFavorite = useSetIsFavorite();
 
     const handleClick = async (isFavorite: boolean) => {
-    setIsFavorite({ id: racketId, isFavorite: !isFavorite });
-    await handleFavorite({ isFavorite, racketId });;
+    setIsFavorite({ id: productId, isFavorite: !isFavorite });
+    await handleFavorite({ isFavorite, productId });;
   };
-  return <button onClick={() => handleClick(isFavorite)}> {isFavorite ? "Удалить из избранного" : "Добавить в избранное"}</button>;
+  return <button onClick={() => handleClick(isFavorite)}> {isFavorite ? "Not favorite" : "Is favorite"}</button>;
 };

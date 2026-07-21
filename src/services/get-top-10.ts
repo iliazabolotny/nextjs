@@ -1,9 +1,9 @@
-import { IRacket } from "@/types/racket";
-import { BASE_API_URL, TOP_10_REQUEST_TAG } from "../constants/api";
-import { Response } from "../types/response";
+import { IProduct } from "@/types/product";
+import { BASE_API_URL, TOP_10_REQUEST_TAG } from "@/constants/api";
+import { Response } from "@/types/response";
 import { cookies } from "next/headers";
 
-export const getTop10 = async (): Promise<Response<IRacket[]>> => {
+export const getTop10 = async (): Promise<Response<IProduct[]>> => {
 
     const cookieStore = await cookies();
 
@@ -23,7 +23,7 @@ export const getTop10 = async (): Promise<Response<IRacket[]>> => {
     return { isError: true, data: undefined };
   }
 
-  const data: IRacket[] = await result.json();
+  const data: IProduct[] = await result.json();
 
   return { isError: false, data };
 };

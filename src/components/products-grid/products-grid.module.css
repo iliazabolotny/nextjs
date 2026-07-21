@@ -1,0 +1,9 @@
+.cardsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.descriptionContainer {
+    max-width: 300px;
+}

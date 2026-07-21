@@ -1,24 +1,24 @@
 import styles from "./main.module.css";
-import { getRackets } from "@/services/get-rackets";
+import { getProducts } from "@/services/get-products";
 import { getTop10 } from "@/services/get-top-10";
-import { RacketsContainer } from "@/components/rackets-container/rackets-container";
+import { ProductsContainer } from "@/components/products-container/products-container";
 import { Top10Container } from "@/components/top-10-container/top-10-container";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Home',
-  description: 'Rackets Home page. The list of 10 rackets and its top',
+  title: 'Main',
+  description: 'Main page. The list of 10 notebooks and its top',
 }
 
 export default function Home() {
-  const getRacketsPromise = getRackets({ limit: 10 });
-  const getTop10RacketsPromise = getTop10();
+  const getProductsPromise = getProducts({ limit: 10 });
+  const getTop10ProductsPromise = getTop10();
   return (
-    <div className={styles.homeContainer}>
-      <h1 className={styles.pageTitle}>Rackets</h1>
-      <RacketsContainer promiseForResolve={getRacketsPromise} />
+    <div className={styles.mainContainer}>
+      <h1 className={styles.pageTitle}>Notebooks</h1>
+      <ProductsContainer promiseForResolve={getProductsPromise} />
       <h1 className={styles.pageTitle}>Top 10</h1>
-      <Top10Container promiseForResolve={getTop10RacketsPromise} />
+      <Top10Container promiseForResolve={getTop10ProductsPromise} />
     </div>
   );
 }

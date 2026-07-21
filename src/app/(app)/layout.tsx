@@ -1,7 +1,7 @@
-import { UserProvider } from "../../providers/user";
+import { UserProvider } from "@/providers/user";
 import { getUser } from "@/services/get-user";
 import { FC, PropsWithChildren } from "react";
-import { Layout } from "../../components/layout/layout";
+import { Layout } from "@/components/layout/layout";
 import { FavoriteProvider } from "@/providers/favorite";
 
 const App: FC<PropsWithChildren> = async ({ children }) => {

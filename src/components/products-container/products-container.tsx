@@ -3,19 +3,15 @@ import { FC, use } from "react";
 import { notFound } from "next/navigation";
 import { IProduct } from "@/types/product";
 import { Response } from "@/types/response";
-import styles from "./top-10.module.css";
+import styles from "./products.module.css";
 import { ProductCard } from "@/components/product-card/product-card";
 
 type Props = {
   promiseForResolve: Promise<Response<IProduct[]>>;
 };
 
-export const Top10Container: FC<Props> = ({ promiseForResolve }) => {
-  const { data, isError } = use(promiseForResolve);
-
-  if (isError) {
-    throw new Error("Top 10 error");
-  }
+export const ProductsContainer: FC<Props> = ({ promiseForResolve }) => {
+  const { data } = use(promiseForResolve);
 
   if (!data) {
     return notFound();
@@ -23,9 +19,9 @@ export const Top10Container: FC<Props> = ({ promiseForResolve }) => {
 
   return (
     <div className={styles.cardsContainer}>
-      {data?.map((item) => (
+        {data?.map((item) => (
           <ProductCard product={item} key={item.id} />
-      ))}
+        ))}
     </div>
   );
 };

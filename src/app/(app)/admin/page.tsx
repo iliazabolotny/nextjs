@@ -11,7 +11,7 @@ const Admin = () => {
     redirect("/403");
   }
 
-  return <div>admin page</div>;
+  return <div>Admin page</div>;
 };
 
 export default Admin;

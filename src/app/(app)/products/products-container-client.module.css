@@ -1,0 +1,9 @@
+.loadBtn {
+    width: 500px;
+}
+
+.loadContainer {
+    display: flex;
+    align-items: center;
+    margin: 30px;
+}

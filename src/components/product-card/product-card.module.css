@@ -1,0 +1,13 @@
+.productCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  max-width: 500px;
+}
+
+.favoriteIcon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}

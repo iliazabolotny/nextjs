@@ -10,7 +10,7 @@ const GlobalError: FC<Props> = ({ reset }) => {
   return (
     <html lang='en'>
       <body>
-        <button onClick={reset}>Refresh</button>
+        <button onClick={reset}>Please, refresh</button>
       </body>
     </html>
   );

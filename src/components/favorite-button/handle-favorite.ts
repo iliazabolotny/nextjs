@@ -1,14 +1,14 @@
 import { BASE_API_URL } from "@/constants/api";
-import { IRacket } from "@/types/racket";
+import { IProduct } from "@/types/product";
 
 export const handleFavorite = async ({
   isFavorite,
-  racketId,
+  productId,
 }: {
   isFavorite: boolean;
-  racketId: IRacket["id"];
+  productId: IProduct["id"];
 }) => {
-  const url = `${BASE_API_URL}/product/${racketId}/favorite`;
+  const url = `${BASE_API_URL}/product/${productId}/favorite`;
 
   return isFavorite
     ? fetch(url, {

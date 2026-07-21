@@ -1,5 +1,5 @@
-import { BASE_API_URL } from "../constants/api";
-import { Response } from "../types/response";
+import { BASE_API_URL } from "@/constants/api";
+import { Response } from "@/types/response";
 import { cookies } from "next/headers";
 import { IFilter } from "@/types/filter";
 

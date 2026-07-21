@@ -1,5 +1,10 @@
 ### Nextjs React
 
-[Сертификат](https://learn.javascript.ru/courses/nextjs-20250606/iliazabolotnyi/ru/certificate.jpg)
+## Инициализация
 
-![Сертификат](./certificate/certificate.jpg)
+Установка зависимостей `npm i`
+
+Старт `npm run dev`
+
+
+[Сертификат](https://learn.javascript.ru/courses/nextjs-20250606/iliazabolotnyi/ru/certificate.jpg)

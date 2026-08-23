@@ -4,15 +4,8 @@ import type { NextRequest } from "next/server";
 export async function middleware(request: NextRequest) {
   const sessionId = request.cookies.get("sessionId");
 
-  if (!sessionId && request.nextUrl.pathname.startsWith("/admin")) {
-    return NextResponse.json({ message: "forbidden" }, { status: 403 });
-  }
-
-  if (
-    request.nextUrl.pathname.startsWith("/403") &&
-    !request.headers.get("x-middleware-auth")
-  ) {
-    return NextResponse.json({ message: "not-found" }, { status: 404 });
+  if (!sessionId && request.nextUrl.pathname.startsWith("/products-paginated")) {
+    return NextResponse.redirect(new URL("/401", request.url));
   }
 }
 

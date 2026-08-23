@@ -19,8 +19,7 @@ const UserOptions = () => {
   const { user } = use(UserContext);
 
   return (
-    <div className={styles.userOptionsContainer}>
-      <Link href="/registry">Register</Link>
+    <div className={styles.userOptionsContainer}>      
       {user ? (
         <button
           disabled={isPending}
@@ -30,7 +29,10 @@ const UserOptions = () => {
           Logout
         </button>
       ) : (
-        <Link href="/login">Login</Link>
+        <div className={styles.logoutBtn}>
+          <Link href="/registry">Register</Link>
+          <Link href="/login">Login</Link>
+        </div>
       )}
     </div>
   );

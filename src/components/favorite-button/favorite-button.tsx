@@ -17,7 +17,7 @@ export const FavoriteButton: FC<Props> = ({isFavoriteInitial, productId}) => {
 
     const handleClick = async (isFavorite: boolean) => {
     setIsFavorite({ id: productId, isFavorite: !isFavorite });
-    await handleFavorite({ isFavorite, productId });;
+    await handleFavorite({ isFavorite, productId });
   };
-  return <button onClick={() => handleClick(isFavorite)}> {isFavorite ? "Not favorite" : "Is favorite"}</button>;
+  return <button onClick={() => handleClick(isFavorite)}> {isFavorite ? "Not favorite" : "Is favorite?"}</button>;
 };
